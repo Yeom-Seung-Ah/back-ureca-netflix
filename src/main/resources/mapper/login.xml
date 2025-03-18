@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+<mapper namespace="com.netflix.ureca.dao.LoginDao">
+
+
+  
+  <insert id="insertToken" parameterType="Login">
+  	insert into login(userId, token) values(#{userId},#{token})
+  </insert>
+  
+  <delete id="deleteToken" parameterType="String">
+  	delete from login where token=#{token}
+  </delete>
+  
+    <select id="checkToken" parameterType="String" resultType="Login">
+  	select * from login where token=#{token}
+  </select>
+  
+	<update id="updateLoginTime">
+    	UPDATE login 
+    	SET loginTime = #{newLoginTime} 
+    	WHERE userId = #{userId}
+	</update>
+
+
+  
+</mapper>
