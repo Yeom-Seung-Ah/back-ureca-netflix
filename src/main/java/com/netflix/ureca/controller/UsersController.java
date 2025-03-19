@@ -33,15 +33,16 @@ public class UsersController {
 	GoogleOAuthService googleOAuthService;
 	
 	@PostMapping("logout")
-	public void logout(@RequestHeader String authorization) {
-		System.out.println(authorization);
-		try {
-			usersService.logout(authorization);
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+	public ResponseEntity<?> logout(@RequestHeader String authorization) {
+	    try {
+	        usersService.logout(authorization);
+	        return ResponseEntity.ok("로그아웃 성공");
+	    } catch (Exception e) {
+	        // 예외 메시지가 "토큰이 만료되었습니다. 다시 로그인하세요."라면, 클라이언트가 이를 감지해서 로그인 페이지로 이동하도록 함
+	        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(e.getMessage());
+	    }
 	}
+
 	
 	@PostMapping("tokenLogin")
 	public Map<String,String> tokenLogin(@RequestBody Users u) {

@@ -17,7 +17,7 @@ public interface LoginDao {
 	public Login checkToken(String authorization) throws Exception;
 
     // 로그인 시간 갱신 (요청 시마다 갱신)
-    public void updateLoginTime(@Param("userId") String userId, @Param("newLoginTime") Date newLoginTime) throws Exception;
+	public void updateLoginTime(@Param("userId") String userId, @Param("newLoginTime") java.sql.Timestamp newLoginTime) throws Exception;
 
  // 리프레시 토큰 저장
     public void insertRefreshToken(@Param("userId") String userId, @Param("refreshToken") String refreshToken) throws Exception;

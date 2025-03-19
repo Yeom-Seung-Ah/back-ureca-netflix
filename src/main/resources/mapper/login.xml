@@ -11,12 +11,11 @@
   	insert into login(userId, token) values(#{userId},#{token})
   </insert>
   
-<delete id="deleteToken" parameterType="String">
-    delete from login where userId=#{userId}
-</delete>
+	<delete id="deleteToken" parameterType="String">
+    DELETE FROM login WHERE userId = #{userId}
+	</delete>
 
 
-  
     <select id="checkToken" parameterType="String" resultType="Login">
   	select * from login where token=#{token}
   </select>
