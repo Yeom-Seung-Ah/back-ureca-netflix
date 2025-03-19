@@ -40,16 +40,17 @@ public class UsersService {
 		
 		// 현재 시간과 loginTime + 30분을 비교하여 토큰 만료 여부 확인
 		Long now = System.currentTimeMillis(); 
-		Long tokenExpiryTime = login.getLoginTime().getTime() + (30 * 60 * 1000);
+		Long tokenExpiryTime = login.getLoginTime().getTime() + (1 * 60 * 1000);
 
 			// 토큰 만료됨 → 로그아웃 처리
 		if(now > tokenExpiryTime) {	
-			loginDao.deleteToken(authorization);
+			loginDao.deleteToken(login.getUserId());
 			throw new RuntimeException("토큰이 만료되었습니다. 다시 로그인하세요.");
 		}
 
 		// 요청할 때마다 loginTime을 현재 시간으로 갱신
-		loginDao.updateLoginTime(login.getUserId(), new Date(now));
+		loginDao.updateLoginTime(login.getUserId(), new java.sql.Timestamp(System.currentTimeMillis()));
+
 
 		return login;
 	}
@@ -148,9 +149,10 @@ public class UsersService {
 
 	// 사용자의 마지막 요청 시간을 갱신하는 메서드
 	public void updateLoginTime(String userId) throws Exception {
-		Date newLoginTime = new Date(System.currentTimeMillis()); // java.sql.Date 사용 현재시간
-		loginDao.updateLoginTime(userId, newLoginTime);
+	    java.sql.Timestamp newLoginTime = new java.sql.Timestamp(System.currentTimeMillis());
+	    loginDao.updateLoginTime(userId, newLoginTime);
 	}
+
 
 	// 회원가입
 	public void signup(Users u) throws Exception {
