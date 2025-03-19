@@ -13,5 +13,10 @@
     select * from users where userId=#{userId} and userPwd=#{userPwd}
 </select>
 
+<select id="getUserById" parameterType="String" resultType="com.netflix.ureca.dto.Users">
+    SELECT * FROM users WHERE userId = #{userId}
+</select>
+
+
   
 </mapper>

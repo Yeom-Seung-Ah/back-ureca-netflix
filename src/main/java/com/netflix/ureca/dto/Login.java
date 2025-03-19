@@ -7,6 +7,16 @@ public class Login {
 	
 	private String userId, token, name;
 	private Date loginTime;
+	private String refreshToken;
+
+	public String getRefreshToken() {
+	    return refreshToken;
+	}
+
+	public void setRefreshToken(String refreshToken) {
+	    this.refreshToken = refreshToken;
+	}
+
 	
 	public Login(String userId, String token, String name, Date loginTime) {
 		super();

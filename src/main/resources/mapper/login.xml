@@ -11,9 +11,11 @@
   	insert into login(userId, token) values(#{userId},#{token})
   </insert>
   
-  <delete id="deleteToken" parameterType="String">
-  	delete from login where token=#{token}
-  </delete>
+<delete id="deleteToken" parameterType="String">
+    delete from login where userId=#{userId}
+</delete>
+
+
   
     <select id="checkToken" parameterType="String" resultType="Login">
   	select * from login where token=#{token}
@@ -22,6 +24,12 @@
 	<update id="updateLoginTime">
     	UPDATE login 
     	SET loginTime = #{newLoginTime} 
+    	WHERE userId = #{userId}
+	</update>
+
+	<update id="updateAccessToken">
+    	UPDATE login 
+    	SET token = #{newAccessToken}
     	WHERE userId = #{userId}
 	</update>
 

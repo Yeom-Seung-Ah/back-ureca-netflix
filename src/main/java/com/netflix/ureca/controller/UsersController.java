@@ -5,6 +5,8 @@ import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -14,6 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.netflix.ureca.dto.Login;
 import com.netflix.ureca.dto.Users;
+import com.netflix.ureca.service.GoogleOAuthService;
 import com.netflix.ureca.service.UsersService;
 
 import jakarta.servlet.http.HttpServletRequest;
@@ -25,6 +28,9 @@ public class UsersController {
 	
 	@Autowired
 	UsersService usersService;
+	
+	@Autowired
+	GoogleOAuthService googleOAuthService;
 	
 	@PostMapping("logout")
 	public void logout(@RequestHeader String authorization) {
@@ -60,7 +66,57 @@ public class UsersController {
 		return responseMap;
 	}
 	
+	@PostMapping("/googleLogin")
+	public ResponseEntity<Map<String, String>> googleLogin(@RequestBody Map<String, String> requestData) {
+	    Map<String, String> responseMap = new HashMap<>();
+	    try {
+	        String accessToken = requestData.get("access_token");
+	        System.out.println("🔵 받은 액세스 토큰: " + accessToken);
+
+	        if (accessToken == null) {
+	            responseMap.put("msg", "access_token이 없습니다.");
+	            return ResponseEntity.badRequest().body(responseMap);
+	        }
+
+	        String email = googleOAuthService.getEmail(accessToken);
+	        System.out.println("🔵 구글 사용자 이메일: " + email);
+
+	        Users googleUser = new Users();
+	        googleUser.setUserId(email);
+	        googleUser.setUserName(email.split("@")[0]);
+
+	        Login loginInfo = usersService.googleLogin(googleUser);
+
+	        if (loginInfo != null && loginInfo.getToken() != null) {
+	            responseMap.put("name", loginInfo.getName());
+	            responseMap.put("Authorization", loginInfo.getToken());
+	            System.out.println("🟢 구글 로그인 성공 - 토큰: " + loginInfo.getToken());
+	            return ResponseEntity.ok(responseMap);
+	        } else {
+	            responseMap.put("msg", "로그인 실패: 서버 오류");
+	            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(responseMap);
+	        }
+	    } catch (Exception e) {
+	        e.printStackTrace();
+	        responseMap.put("msg", "서버 오류 발생");
+	        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(responseMap);
+	    }
+	}
+
+
+
+
 	
+	@PostMapping("checkToken")
+	public ResponseEntity<?> checkToken(@RequestHeader String authorization) {
+	    try {
+	        Login login = usersService.checkToken(authorization);
+	        return ResponseEntity.ok(login);
+	    } catch (Exception e) {  // RuntimeException → Exception으로 변경
+	        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(e.getMessage());
+	    }
+	}
+
 
 	
 	@PostMapping("/signup")
