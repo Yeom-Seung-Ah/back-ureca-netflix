@@ -66,7 +66,7 @@ public class GoogleOAuthController {
         }
 
         // 로그인 성공 시, 프론트엔드로 토큰과 이름을 쿼리 파라미터로 전달
-        return "redirect:http://localhost:5173/?token=" + loginInfo.getToken() + "&name=" + loginInfo.getName();
+        return "redirect:http://localhost:5173/?token=" + loginInfo.getToken() + "&name=" + loginInfo.getName() + "&userId=" + loginInfo.getUserId();
     }
 
 }

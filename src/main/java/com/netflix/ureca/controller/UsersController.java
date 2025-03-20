@@ -56,6 +56,7 @@ public class UsersController {
 			if(loginInfo!=null && loginInfo.getName()!=null && loginInfo.getToken()!=null) {
 				responseMap.put("name", loginInfo.getName());
 				responseMap.put("Authorization", loginInfo.getToken());
+				responseMap.put("userId", loginInfo.getUserId());
 			}else {
 				responseMap.put("msg", "다시 로그인 해주세요");
 			}
@@ -91,6 +92,7 @@ public class UsersController {
 	        if (loginInfo != null && loginInfo.getToken() != null) {
 	            responseMap.put("name", loginInfo.getName());
 	            responseMap.put("Authorization", loginInfo.getToken());
+	            responseMap.put("userId", loginInfo.getUserId());
 	            System.out.println("🟢 구글 로그인 성공 - 토큰: " + loginInfo.getToken());
 	            return ResponseEntity.ok(responseMap);
 	        } else {

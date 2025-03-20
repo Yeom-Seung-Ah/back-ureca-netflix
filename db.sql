@@ -14,3 +14,11 @@ CREATE TABLE `netflix_ureca`.`login` (
 create table saltInfo(
 userId varchar(50) primary key,
 salt varchar(256) );
+
+CREATE TABLE wishlists (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  user_id VARCHAR(50) NOT NULL,
+  movie_id INT NOT NULL,
+  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  UNIQUE KEY unique_wishlist(user_id, movie_id)
+);
