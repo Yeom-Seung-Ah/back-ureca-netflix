@@ -20,13 +20,11 @@ back: JAVA, SpringBoot, mySQL, myBatis
 
 ✍️more information
 
-> 리액트 선택 이유
-
-> 🔴미비한 점/보완할 점
+> 작성 예정
 
 ---
 
-(더 자세한 내용 및 프로젝트 기록은 [티스토리](https://kenco.tistory.com/56). 암호는 슬랙DM주세요~!)
+(더 자세한 내용 및 프로젝트 기록은 [티스토리](https://kenco.tistory.com/56).)
 
 ## 프로젝트 기록
 
@@ -76,6 +74,8 @@ back: JAVA, SpringBoot, mySQL, myBatis
 
 ### <2025.03.20>
 
-| Step18. back단 - 영화 찜하기 기능 구현 |
+| Step18. front/back단 - 영화 찜하기 기능 구현 |
 
-| Step19. back단 - 검색 기능 구현 및 토큰 업데이트|
+| Step19. front단 - 검색 기능 구현 및 토큰 업데이트 추가 |
+
+| Step20. front단 - 영화 상세페이지 기능 구현 및 토큰 업데이트 추가 |
