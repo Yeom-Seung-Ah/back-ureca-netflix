@@ -40,7 +40,7 @@ public class UsersService {
 		
 		// 현재 시간과 loginTime + 30분을 비교하여 토큰 만료 여부 확인
 		Long now = System.currentTimeMillis(); 
-		Long tokenExpiryTime = login.getLoginTime().getTime() + (1 * 60 * 1000);
+		Long tokenExpiryTime = login.getLoginTime().getTime() + (30 * 60 * 1000);
 
 			// 토큰 만료됨 → 로그아웃 처리
 		if(now > tokenExpiryTime) {	

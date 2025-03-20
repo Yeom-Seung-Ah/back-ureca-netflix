@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+<mapper namespace="com.netflix.ureca.dao.WishlistDao">
+  
+  <insert id="addWish">
+    INSERT INTO wishlists(user_id, movie_id) VALUES(#{userId}, #{movieId})
+  </insert>
+  
+  <select id="getWishlistByUserId" resultType="Integer">
+    SELECT movie_id FROM wishlists WHERE user_id = #{userId}
+  </select>
+  
+  <delete id="removeWish">
+  DELETE FROM wishlists WHERE user_id=#{userId} AND movie_id=#{movieId}
+</delete>
+
+
+</mapper>
