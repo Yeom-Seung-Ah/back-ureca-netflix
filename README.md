@@ -12,9 +12,9 @@
 
 ### 사용 스택
 
-front: html5, CSS, javascript, jQuery, React, Vite, bootstrap
+front: React, Vite, bootstrap, Axios, React Multi Carousel, react-youtube, HTML/CSS/JS
 
-back: JAVA, SpringBoot, mySQL, myBatis
+back: JAVA, Spring Boot, MySQL, myBatis, JWT 기반 인증, Google OAuth﻿
 
 ---
 
